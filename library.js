@@ -19,11 +19,23 @@ class Playlist {
   constructor(name) {
     this.name = name;
     this._tracks = [];
-    this.overallRating = 0;
+    this._overallRating = 0;
   }
 
   addTrack(track) {
     this._tracks.push(track);
+
+    const totalRatings = (tracksArray) => {
+      let total = 0;
+      tracksArray.map((track) => {
+        total += track._rating;
+        console.log(total);
+      })
+      return total;
+    }
+
+    this._overallRating = totalRatings(this._tracks) / this._tracks.length;
+
     console.log(`Added ${track.title} to ${this.name}.`);
   }
 
@@ -33,6 +45,10 @@ class Playlist {
     })
 
     console.log(`Tracklist for the playlist "${this.name}":\n${trackList}`);
+  }
+
+  get rating () {
+    return this._overallRating;
   }
 }
 
