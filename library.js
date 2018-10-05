@@ -20,21 +20,23 @@ class Playlist {
     this.name = name;
     this._tracks = [];
     this._overallRating = 0;
+    this._totalDuration = 0;
   }
 
   addTrack(track) {
     this._tracks.push(track);
 
-    const totalRatings = (tracksArray) => {
+    const totalizer = (tracksArray, targetToSum) => {
       let total = 0;
       tracksArray.map((track) => {
-        total += track._rating;
+        total += track[targetToSum];
         console.log(total);
       })
       return total;
     }
 
-    this._overallRating = totalRatings(this._tracks) / this._tracks.length;
+    this._overallRating = totalizer(this._tracks, "_rating") / this._tracks.length;
+    this._totalDuration += track._length;
 
     console.log(`Added ${track.title} to ${this.name}.`);
   }
@@ -49,6 +51,12 @@ class Playlist {
 
   get rating () {
     return this._overallRating;
+  }
+
+  get duration () {
+    let minutes = Math.floor(this._totalDuration / 60);
+    let seconds = this._totalDuration - (minutes * 60);
+    return `${minutes}:${seconds}`;
   }
 }
 
