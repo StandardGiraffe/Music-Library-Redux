@@ -33,7 +33,7 @@ class Track {
 
     this.title = title;
     this._rating = this.validateRating(rating);
-    this.length = length;
+    this._length = length;
   }
 
   validateRating(rating) {
@@ -46,7 +46,13 @@ class Track {
   }
 
   get rating() {
-    return this._rating;
+    return `You rated ${this.title} as ${this._rating} out of 5.`;
+  }
+
+  get length() {
+    let minutes = Math.floor(this._length / 60);
+    let seconds = this._length - (minutes * 60);
+    return `The length of ${this.title} is ${minutes}:${seconds}.`;
   }
 
   setRating(rating) {
@@ -58,4 +64,4 @@ class Track {
 // #############
 // Test-driving:
 // #############
-const myTrack = new Track("No No Raja", 4, 201);
+const tr = new Track("No No Raja", 4, 201);
