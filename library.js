@@ -18,12 +18,21 @@ class Library {
 class Playlist {
   constructor(name) {
     this.name = name;
-    this.tracks = [];
+    this._tracks = [];
+    this.overallRating = 0;
   }
 
   addTrack(track) {
-    this.tracks.push(track);
+    this._tracks.push(track);
     console.log(`Added ${track.title} to ${this.name}.`);
+  }
+
+  get tracks() {
+    const trackList = this._tracks.map((track) => {
+    return `${track.title} - ${track.length}; Rating ${track._rating}/5\n`;
+    })
+
+    console.log(`Tracklist for the playlist "${this.name}":\n${trackList}`);
   }
 }
 
@@ -52,7 +61,7 @@ class Track {
   get length() {
     let minutes = Math.floor(this._length / 60);
     let seconds = this._length - (minutes * 60);
-    return `The length of ${this.title} is ${minutes}:${seconds}.`;
+    return `${minutes}:${seconds}`;
   }
 
   setRating(rating) {
@@ -65,3 +74,8 @@ class Track {
 // Test-driving:
 // #############
 const tr = new Track("No No Raja", 4, 201);
+const pl = new Playlist("Danny's Playlist", "Danny");
+pl.addTrack(tr);
+pl.addTrack(tr);
+pl.addTrack(tr);
+pl.addTrack(tr);
